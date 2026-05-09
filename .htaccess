@@ -1,0 +1,13 @@
+Options -Indexes
+RewriteEngine On
+
+# Block direct access to config and includes
+RewriteRule ^config/ - [F,L]
+RewriteRule ^includes/ - [F,L]
+
+# Allow existing files and directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route clean URLs: /restaurant/kaveri → details.php?slug=kaveri
+RewriteRule ^([a-z0-9-]+)/([a-z0-9-]+)/?$ details.php?slug=$2 [QSA,L]
